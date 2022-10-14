@@ -23,9 +23,9 @@ libraryDependencies ++= Seq(
   "org.scalatestplus" %% "scalacheck-1-16" % "3.2.13.0" % "test"
 )
 
-javacOptions ++= Seq("--release", "6", "-Xlint:unchecked")
+javacOptions ++= Seq("--release", "8", "-Xlint:unchecked")
 
-javacOptions in doc := Seq("--release", "6")
+javacOptions in doc := Seq("--release", "8")
 
 // fork := true
 // Check at runtime for JNI errors when running tests
