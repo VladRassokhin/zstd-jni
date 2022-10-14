@@ -93,6 +93,7 @@ jobs:
             fail-fast: false
             matrix:
                 include: [
+                    { msystem: MINGW64, arch: aarch64, java_arch: arm64, target: 'win\arch64', s3_path: win/aarch64 },
                     { msystem: MINGW64, arch: x86_64, java_arch: x64, target: 'win\amd64', s3_path: win/amd64 },
                     { msystem: MINGW32, arch: i686,   java_arch: x86, target: 'win\x86',   s3_path: win/x86 }
                 ]

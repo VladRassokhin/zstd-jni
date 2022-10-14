@@ -170,6 +170,7 @@ packageOptions in (Compile, packageBin) ++= Seq(
       |linux/ppc64/libzstd-jni-${version.value}.so;osname=Linux;processor=ppc64,
       |linux/ppc64le/libzstd-jni-${version.value}.so;osname=Linux;processor=ppc64le,
       |linux/s390x/libzstd-jni-${version.value}.so;osname=Linux;processor=s390x,
+      |win/aarch64/libzstd-jni-${version.value}.dll;osname=Win32;processor=arm64,
       |win/amd64/libzstd-jni-${version.value}.dll;osname=Win32;processor=amd64,
       |win/x86/libzstd-jni-${version.value}.dll;osname=Win32;processor=x86""".stripMargin}),
 )
@@ -201,7 +202,7 @@ OsgiKeys.importPackage := Seq("org.osgi.framework;resolution:=optional")
 OsgiKeys.privatePackage := Seq(
     "linux.amd64", "linux.i386", "linux.aarch64", "linux.arm", "linux.ppc64",
     "linux.ppc64le", "linux.mips64", "linux.loongarch64", "linux.s390x", "darwin.x86_64",
-    "darwin.aarch64", "win.amd64", "win.x86", "freebsd.amd64", "freebsd.i386"
+    "darwin.aarch64", "win.aarch64", "win.amd64", "win.x86", "freebsd.amd64", "freebsd.i386"
 )
 
 // Jacoco coverage setting
@@ -387,3 +388,13 @@ packageOptions in (Win_amd64, packageBin) ++= Seq(
   Package.ManifestAttributes(new java.util.jar.Attributes.Name("Automatic-Module-Name") -> "com.github.luben.zstd_jni"),
 )
 addArtifact(Artifact(nameValue, "win_amd64"), packageBin in Win_amd64)
+
+val Win_aarch64 = config("win_aarch64").extend(Compile)
+inConfig(Win_aarch64)(Defaults.compileSettings)
+mappings in (Win_aarch64, packageBin) := {
+  (file(s"target/classes/win/aarch64/libzstd-jni-${version.value}.dll"), s"win/aarch64/libzstd-jni-${version.value}.dll") :: classes
+}
+packageOptions in (Win_aarch64, packageBin) ++= Seq(
+  Package.ManifestAttributes(new java.util.jar.Attributes.Name("Automatic-Module-Name") -> "com.github.luben.zstd_jni"),
+)
+addArtifact(Artifact(nameValue, "win_aarch64"), packageBin in Win_aarch64)
