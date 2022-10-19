@@ -200,7 +200,11 @@
 #  if defined(ZSTD_ARCH_X86_SSE2)
 #    include <emmintrin.h>
 #  elif defined(ZSTD_ARCH_ARM_NEON)
-#    include <arm_neon.h>
+#    if defined(_M_ARM64)
+#      include <arm64_neon.h>
+#    else
+#      include <arm_neon.h>
+#    endif
 #  endif
 #endif
 
