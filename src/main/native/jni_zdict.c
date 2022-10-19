@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-JNIEXPORT jlong Java_com_github_luben_zstd_Zstd_trainFromBuffer
+JNIEXPORT jlong JNICALL Java_com_github_luben_zstd_Zstd_trainFromBuffer
   (JNIEnv *env, jclass obj, jobjectArray samples, jbyteArray dictBuffer, jboolean legacy) {
     size_t size = 0;
     jsize num_samples = (*env)->GetArrayLength(env, samples);
@@ -55,7 +55,7 @@ E2: free(samples_sizes);
 E1: return size;
 }
 
-JNIEXPORT jlong Java_com_github_luben_zstd_Zstd_trainFromBufferDirect
+JNIEXPORT jlong JNICALL Java_com_github_luben_zstd_Zstd_trainFromBufferDirect
   (JNIEnv *env, jclass obj, jobject samples, jintArray sampleSizes, jobject dictBuffer, jboolean legacy) {
 
     size_t size = 0;
