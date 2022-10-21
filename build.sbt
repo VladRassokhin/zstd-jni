@@ -32,6 +32,10 @@ javacOptions in doc := Seq("-source", "8", "-target", "8")
 javaOptions in Test ++= Seq("-Xcheck:jni")
 
 // sbt-jni configuration
+jniCompile := (if (System.getProperty("os.name").toLowerCase startsWith "win") {
+  Def.task {}
+} else jniCompile)
+
 jniLibraryName := "zstd-jni" + "-" + version.value
 
 jniNativeClasses := Seq(
